@@ -547,7 +547,9 @@
 
 
 <h1 id="geochem-test">geochem-test</h1>
-<p>This is the project description.</p>
+<p>A geochemical microschema for modeling well-field experiment observations,
+designed to conform to bertron-schema's Entity pattern using named slots
+instead of a generic properties bag.</p>
 <p>URI: https://w3id.org/sierra-moxon/geochem-test</p>
 <p>Name: geochem-test</p>
 <h2 id="classes">Classes</h2>
@@ -560,16 +562,32 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="NamedThing/">NamedThing</a></td>
-<td>A generic grouping for any identifiable entity</td>
+<td><a href="GeochemDataset/">GeochemDataset</a></td>
+<td>A dataset containing geochemical observations from a well-field experiment</td>
 </tr>
 <tr>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="Person/">Person</a></td>
-<td>Represents a Person</td>
+<td><a href="GeochemObservation/">GeochemObservation</a></td>
+<td>A single geochemical measurement observation</td>
 </tr>
 <tr>
-<td><a href="PersonCollection/">PersonCollection</a></td>
-<td>A holder for Person objects</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="RadonObservation/">RadonObservation</a></td>
+<td>A radon-222 activity concentration measurement</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="TracerConcentrationObservation/">TracerConcentrationObservation</a></td>
+<td>A tracer concentration measurement (iodine or cesium)</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="WaterQualityObservation/">WaterQualityObservation</a></td>
+<td>A water quality parameter measurement (temperature, dissolved oxygen, specifi...</td>
+</tr>
+<tr>
+<td><a href="Quantity/">Quantity</a></td>
+<td>A numeric value with an optional unit</td>
+</tr>
+<tr>
+<td><a href="TracerExperimentMetadata/">TracerExperimentMetadata</a></td>
+<td>Metadata for a tracer experiment, including initial concentrations and flow r...</td>
 </tr>
 </tbody>
 </table>
@@ -583,36 +601,84 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="age_in_years/">age_in_years</a></td>
-<td>Number of years since birth</td>
+<td><a href="ber_data_source/">ber_data_source</a></td>
+<td>The source file for this data (bertron Entity provenance)</td>
 </tr>
 <tr>
-<td><a href="birth_date/">birth_date</a></td>
-<td>Date on which a person is born</td>
+<td><a href="coordinates/">coordinates</a></td>
+<td>Geographic coordinates for the sampling site</td>
 </tr>
 <tr>
 <td><a href="description/">description</a></td>
-<td>A human-readable description for a thing</td>
+<td>A human-readable description for this entity</td>
+</tr>
+<tr>
+<td><a href="entity_type/">entity_type</a></td>
+<td>The type(s) of this entity, from bertron's EntityType enum</td>
+</tr>
+<tr>
+<td><a href="experiment_metadata/">experiment_metadata</a></td>
+<td>Optional metadata for tracer experiments</td>
+</tr>
+<tr>
+<td><a href="experiment_type/">experiment_type</a></td>
+<td>The type of experiment (extraction or tracer)</td>
+</tr>
+<tr>
+<td><a href="flow_rate/">flow_rate</a></td>
+<td>Flow rate during the experiment (Q)</td>
 </tr>
 <tr>
 <td><a href="id/">id</a></td>
-<td>A unique identifier for a thing</td>
+<td>A unique identifier for this entity</td>
+</tr>
+<tr>
+<td><a href="initial_cesium_concentration/">initial_cesium_concentration</a></td>
+<td>Initial cesium tracer concentration (C_Cs)</td>
+</tr>
+<tr>
+<td><a href="initial_iodine_concentration/">initial_iodine_concentration</a></td>
+<td>Initial iodine tracer concentration (C_I)</td>
+</tr>
+<tr>
+<td><a href="measurement_type/">measurement_type</a></td>
+<td>What is being measured</td>
+</tr>
+<tr>
+<td><a href="measurement_value/">measurement_value</a></td>
+<td>The observed value and unit</td>
 </tr>
 <tr>
 <td><a href="name/">name</a></td>
-<td>A human-readable name for a thing</td>
+<td>A human-readable name for this entity</td>
 </tr>
 <tr>
-<td><a href="people/">people</a></td>
-<td></td>
+<td><a href="observations/">observations</a></td>
+<td>The geochemical observations in this dataset</td>
 </tr>
 <tr>
-<td><a href="primary_email/">primary_email</a></td>
-<td>The main email address of a person</td>
+<td><a href="quantity_unit/">quantity_unit</a></td>
+<td>Unit of measurement (UCUM, UO, etc</td>
 </tr>
 <tr>
-<td><a href="vital_status/">vital_status</a></td>
-<td>living or dead status</td>
+<td><a href="quantity_value/">quantity_value</a></td>
+<td>The numeric value</td>
+</tr>
+<tr>
+<td><a href="sample_name/">sample_name</a></td>
+<td>Sample identifier from the experiment (e</td>
+</tr>
+<tr>
+<td><a href="time_since_start/">time_since_start</a></td>
+<td>Elapsed time from the start of the experiment</td>
+</tr>
+<tr>
+<td><a href="uncertainty/">uncertainty</a></td>
+<td>Measurement uncertainty (same unit as measurement_value)</td>
+</tr>
+<tr>
+<td><a href="uri/">uri</a></td>
+<td>A permanent URI for this dataset (bertron Entity provenance)</td>
 </tr>
 </tbody>
 </table>
@@ -626,8 +692,20 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="PersonStatus/">PersonStatus</a></td>
-<td>The vital status of a person</td>
+<td><a href="BERSourceType/">BERSourceType</a></td>
+<td>Data source types from bertron-schema</td>
+</tr>
+<tr>
+<td><a href="EntityType/">EntityType</a></td>
+<td>Entity types from bertron-schema, representing categories of scientific data ...</td>
+</tr>
+<tr>
+<td><a href="ExperimentTypeEnum/">ExperimentTypeEnum</a></td>
+<td>Types of well-field experiments</td>
+</tr>
+<tr>
+<td><a href="GeochemMeasurementTypeEnum/">GeochemMeasurementTypeEnum</a></td>
+<td>Types of geochemical measurements</td>
 </tr>
 </tbody>
 </table>

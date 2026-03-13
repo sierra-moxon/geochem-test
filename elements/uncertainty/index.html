@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://sierra-moxon.github.io/geochem-test/elements/name/">
+        <link rel="canonical" href="https://sierra-moxon.github.io/geochem-test/elements/uncertainty/">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Slot: name - geochem-test</title>
+        <title>Slot: uncertainty - geochem-test</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#slot-name" class="md-skip">
+        <a href="#slot-uncertainty" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Slot: name
+              Slot: uncertainty
             
           </span>
         </div>
@@ -485,10 +485,10 @@
   
 
 
-<h1 id="slot-name">Slot: name</h1>
-<p><em>A human-readable name for this entity</em></p>
-<p>URI: <a href="http://schema.org/name">schema:name</a>
-Alias: name</p>
+<h1 id="slot-uncertainty">Slot: uncertainty</h1>
+<p><em>Measurement uncertainty (same unit as measurement_value)</em></p>
+<p>URI: <a href="https://w3id.org/sierra-moxon/geochem-test/uncertainty">geochem_test:uncertainty</a>
+Alias: uncertainty</p>
 <!-- no inheritance hierarchy -->
 
 <h2 id="applicable-classes">Applicable Classes</h2>
@@ -502,8 +502,23 @@ Alias: name</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="../GeochemDataset/">GeochemDataset</a></td>
-<td>A dataset containing geochemical observations from a well-field experiment</td>
+<td><a href="../GeochemObservation/">GeochemObservation</a></td>
+<td>A single geochemical measurement observation</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../TracerConcentrationObservation/">TracerConcentrationObservation</a></td>
+<td>A tracer concentration measurement (iodine or cesium)</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../RadonObservation/">RadonObservation</a></td>
+<td>A radon-222 activity concentration measurement</td>
+<td>no</td>
+</tr>
+<tr>
+<td><a href="../WaterQualityObservation/">WaterQualityObservation</a></td>
+<td>A water quality parameter measurement (temperature, dissolved oxygen, specifi...</td>
 <td>no</td>
 </tr>
 </tbody>
@@ -520,15 +535,11 @@ Alias: name</p>
 <tbody>
 <tr>
 <td>Range</td>
-<td><a href="../String/">String</a></td>
+<td><a href="../Quantity/">Quantity</a></td>
 </tr>
 <tr>
 <td>Domain Of</td>
-<td><a href="../GeochemDataset/">GeochemDataset</a></td>
-</tr>
-<tr>
-<td>Slot URI</td>
-<td><a href="http://schema.org/name">schema:name</a></td>
+<td><a href="../GeochemObservation/">GeochemObservation</a></td>
 </tr>
 </tbody>
 </table>
@@ -563,25 +574,25 @@ Alias: name</p>
 <tbody>
 <tr>
 <td>self</td>
-<td>schema:name</td>
+<td>geochem_test:uncertainty</td>
 </tr>
 <tr>
 <td>native</td>
-<td>geochem_test:name</td>
+<td>geochem_test:uncertainty</td>
 </tr>
 </tbody>
 </table>
 <h2 id="linkml-source">LinkML Source</h2>
 <details>
-<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A human-readable name for this entity</span>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Measurement uncertainty (same unit as measurement_value)</span>
 <span class="nt">from_schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://w3id.org/sierra-moxon/geochem-test</span>
 <span class="nt">rank</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
-<span class="nt">slot_uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">schema:name</span>
-<span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
+<span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uncertainty</span>
 <span class="nt">domain_of</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GeochemDataset</span>
-<span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GeochemObservation</span>
+<span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Quantity</span>
+<span class="nt">inlined</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 </details>
 
