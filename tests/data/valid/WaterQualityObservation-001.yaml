@@ -1,0 +1,10 @@
+# Single water quality observation (temperature)
+---
+sample_name: "T17-1"
+measurement_type: temperature
+measurement_value:
+  quantity_value: 11.2
+  quantity_unit: UCUM:Cel
+time_since_start:
+  quantity_value: 0
+  quantity_unit: UCUM:min

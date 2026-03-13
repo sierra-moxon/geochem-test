@@ -3,7 +3,9 @@ id: https://w3id.org/sierra-moxon/geochem-test
 name: geochem-test
 title: geochem-test
 description: |-
-  This is the project description.
+  A geochemical microschema for modeling well-field experiment observations,
+  designed to conform to bertron-schema's Entity pattern using named slots
+  instead of a generic properties bag.
 license: MIT
 see_also:
   - https://sierra-moxon.github.io/geochem-test
@@ -11,10 +13,15 @@ see_also:
 prefixes:
   geochem_test: https://w3id.org/sierra-moxon/geochem-test/
   linkml: https://w3id.org/linkml/
-  biolink: https://w3id.org/biolink/vocab/
   schema: http://schema.org/
-  PATO: http://purl.obolibrary.org/obo/PATO_
-  example: http://www.example.org/rdf#
+  CHEBI: http://purl.obolibrary.org/obo/CHEBI_
+  UO: http://purl.obolibrary.org/obo/UO_
+  UCUM: https://units-of-measurement.org/
+  ENVO: http://purl.obolibrary.org/obo/ENVO_
+  OBI: http://purl.obolibrary.org/obo/OBI_
+  coms: https://w3id.org/linkml/linkml-microschema-profile/
+  nmdc: https://w3id.org/nmdc/
+  bertron: https://w3id.org/bertron-schema/
 default_prefix: geochem_test
 default_range: string
 
@@ -23,76 +30,260 @@ imports:
 
 classes:
 
-  NamedThing:
+  #────────────────────────────────────────────────────────────────
+  # VALUE MICROSCHEMA
+  #────────────────────────────────────────────────────────────────
+
+  Quantity:
+    class_uri: schema:QuantitativeValue
     description: >-
-      A generic grouping for any identifiable entity
+      A numeric value with an optional unit. Designed for inline composition
+      (no identifier). Compatible with bertron's QuantityValue.
+    slots:
+      - quantity_value
+      - quantity_unit
+
+  #────────────────────────────────────────────────────────────────
+  # EXPERIMENT METADATA
+  #────────────────────────────────────────────────────────────────
+
+  TracerExperimentMetadata:
+    description: >-
+      Metadata for a tracer experiment, including initial concentrations
+      and flow rate extracted from the spreadsheet header.
+    attributes:
+      initial_iodine_concentration:
+        range: Quantity
+        inlined: true
+        description: Initial iodine tracer concentration (C_I)
+      initial_cesium_concentration:
+        range: Quantity
+        inlined: true
+        description: Initial cesium tracer concentration (C_Cs)
+      flow_rate:
+        range: Quantity
+        inlined: true
+        description: Flow rate during the experiment (Q)
+
+  #────────────────────────────────────────────────────────────────
+  # OBSERVATION CLASSES
+  #────────────────────────────────────────────────────────────────
+
+  GeochemObservation:
+    class_uri: geochem_test:GeochemObservation
+    description: >-
+      A single geochemical measurement observation. Replaces bertron's generic
+      properties bag with named slots for measurement data.
+    annotations:
+      implements: bertron:Entity
+    slots:
+      - sample_name
+      - measurement_type
+      - measurement_value
+      - uncertainty
+      - time_since_start
+
+  RadonObservation:
+    is_a: GeochemObservation
+    description: >-
+      A radon-222 activity concentration measurement.
+      Expected measurement_type: radon_222, unit: pCi/L.
+
+  TracerConcentrationObservation:
+    is_a: GeochemObservation
+    description: >-
+      A tracer concentration measurement (iodine or cesium).
+      Expected unit: ppb (iodine) or ppm (cesium).
+
+  WaterQualityObservation:
+    is_a: GeochemObservation
+    description: >-
+      A water quality parameter measurement (temperature, dissolved oxygen,
+      specific conductance, pH, or ORP).
+
+  #────────────────────────────────────────────────────────────────
+  # DATASET CONTAINER (tree_root)
+  #────────────────────────────────────────────────────────────────
+
+  GeochemDataset:
+    tree_root: true
+    class_uri: geochem_test:GeochemDataset
+    description: >-
+      A dataset containing geochemical observations from a well-field experiment.
+      Serves as the tree root and mirrors bertron Entity core slots.
+    annotations:
+      implements: bertron:Entity
     slots:
       - id
       - name
       - description
-    class_uri: schema:Thing
-
-  Person:
-    is_a: NamedThing
-    description: >-
-      Represents a Person
-    slots:
-      - primary_email
-      - birth_date
-      - age_in_years
-      - vital_status
-    slot_usage:
-      primary_email:
-        pattern: "^\\S+@[\\S+\\.]+\\S+"
-
-  PersonCollection:
-    tree_root: true
-    description: >-
-      A holder for Person objects
+      - ber_data_source
+      - uri
+      - entity_type
+      - experiment_type
+      - coordinates
     attributes:
-      people:
-        range: Person
+      observations:
+        range: GeochemObservation
         multivalued: true
         inlined_as_list: true
+        description: The geochemical observations in this dataset
+      experiment_metadata:
+        range: TracerExperimentMetadata
+        inlined: true
+        description: Optional metadata for tracer experiments
+
+#────────────────────────────────────────────────────────────────
+# SLOTS
+#────────────────────────────────────────────────────────────────
 
 slots:
   id:
     identifier: true
     slot_uri: schema:identifier
     range: uriorcurie
-    description: A unique identifier for a thing
+    description: A unique identifier for this entity
   name:
     slot_uri: schema:name
-    description: A human-readable name for a thing
+    description: A human-readable name for this entity
   description:
     slot_uri: schema:description
-    description: A human-readable description for a thing
-  primary_email:
-    slot_uri: schema:email
-    description: The main email address of a person
-  birth_date:
-    slot_uri: schema:birthDate
-    range: date
-    description: Date on which a person is born
-  age_in_years:
-    range: integer
-    description: Number of years since birth
-  vital_status:
-    range: PersonStatus
-    description: living or dead status
+    description: A human-readable description for this entity
+  ber_data_source:
+    range: string
+    description: >-
+      The source file for this data (bertron Entity provenance).
+      E.g. the xlsx filename.
+    exact_mappings:
+      - bertron:ber_data_source
+  uri:
+    range: uri
+    description: >-
+      A permanent URI for this dataset (bertron Entity provenance).
+    exact_mappings:
+      - bertron:uri
+  entity_type:
+    range: EntityType
+    multivalued: true
+    description: >-
+      The type(s) of this entity, from bertron's EntityType enum.
+    exact_mappings:
+      - bertron:entity_type
+  coordinates:
+    range: string
+    description: Geographic coordinates for the sampling site
+  experiment_type:
+    range: ExperimentTypeEnum
+    description: The type of experiment (extraction or tracer)
+  sample_name:
+    range: string
+    description: >-
+      Sample identifier from the experiment (e.g. "A16-7").
+      Replaces bertron's generic properties[label="sample name"].
+  measurement_type:
+    range: GeochemMeasurementTypeEnum
+    required: true
+    description: >-
+      What is being measured. Replaces bertron's properties[].attribute.
+    exact_mappings:
+      - coms:measurement_type
+  measurement_value:
+    range: Quantity
+    inlined: true
+    required: true
+    description: >-
+      The observed value and unit. Replaces bertron's
+      properties[].numeric_value + unit.
+  uncertainty:
+    range: Quantity
+    inlined: true
+    description: Measurement uncertainty (same unit as measurement_value)
+  time_since_start:
+    range: Quantity
+    inlined: true
+    description: >-
+      Elapsed time from the start of the experiment.
+  quantity_value:
+    range: decimal
+    required: true
+    description: The numeric value
+  quantity_unit:
+    range: uriorcurie
+    slot_uri: schema:unitCode
+    description: Unit of measurement (UCUM, UO, etc.)
+
+#────────────────────────────────────────────────────────────────
+# ENUMS
+#────────────────────────────────────────────────────────────────
 
 enums:
-  PersonStatus:
-    description:
-      The vital status of a person
+  GeochemMeasurementTypeEnum:
+    description: Types of geochemical measurements
     permissible_values:
-      ALIVE:
-        description: the person is living
-        meaning: PATO:0001421
-      DEAD:
-        description: the person is deceased
-        meaning: PATO:0001422
-      UNKNOWN:
-        description: the vital status is not known
-        todos:
-          - map this to an ontology
+      radon_222:
+        description: Radon-222 activity concentration
+        meaning: CHEBI:33323
+      iodine:
+        description: Iodine tracer concentration
+        meaning: CHEBI:24859
+      cesium:
+        description: Cesium tracer concentration
+        meaning: CHEBI:30514
+      temperature:
+        description: Water temperature
+        meaning: ENVO:09200014
+      dissolved_oxygen:
+        description: Dissolved oxygen concentration
+        meaning: ENVO:3100011
+      specific_conductance:
+        description: Specific conductance of water
+        meaning: ENVO:09200013
+      ph:
+        description: pH of water
+        meaning: ENVO:3100026
+      orp:
+        description: Oxidation-reduction potential
+        meaning: ENVO:09200018
+
+  ExperimentTypeEnum:
+    description: Types of well-field experiments
+    permissible_values:
+      extraction:
+        description: Groundwater extraction experiment
+      tracer:
+        description: Tracer injection experiment
+
+  EntityType:
+    description: >-
+      Entity types from bertron-schema, representing categories of
+      scientific data entities.
+    permissible_values:
+      biodata:
+        description: Biological data
+      sample:
+        description: Physical sample
+      sequence:
+        description: Nucleotide or protein sequence
+      dataset:
+        description: A collection of data
+      site:
+        description: A geographic or experimental site
+      project:
+        description: A research project
+      publication:
+        description: A published work
+
+  BERSourceType:
+    description: >-
+      Data source types from bertron-schema.
+    permissible_values:
+      EMSL:
+        description: Environmental Molecular Sciences Laboratory
+      ESS_DIVE:
+        description: ESS-DIVE data repository
+      JGI:
+        description: Joint Genome Institute
+      MONET:
+        description: MONET consortium
+      NMDC:
+        description: National Microbiome Data Collaborative

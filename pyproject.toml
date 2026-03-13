@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "geochem_test"
-description = "This is the project description."
+description = "A geochemical microschema for modeling well-field experiment observations."
 authors = [
   {name = "Sierra Moxon", email = "sierra-moxon@lbl.gov"},
 ]
@@ -26,6 +26,7 @@ dev = [
     "mkdocs-pymdownx-material-extras>=2.5.6",
     "jupyter>=1.0.0",
     "mknotebooks>= 0.8.0",
+    "openpyxl>=3.1.0",
 ]
 
 # See https://hatch.pypa.io/latest/config/build/#file-selection for how to

@@ -1,0 +1,44 @@
+# Extraction experiment dataset with radon observations from Altona 2016
+---
+id: "altona-extraction-2016"
+name: "Altona Well Field 222Rn Extraction Experiment"
+description: "Radon-222 extraction experiment conducted 7/26/2016 at Altona well field"
+ber_data_source: "altona2016experiments.xlsx"
+uri: "https://catalog.data.gov/dataset/altona-well-field-222rn-data"
+entity_type:
+  - dataset
+experiment_type: extraction
+observations:
+  - sample_name: "A16-7"
+    measurement_type: radon_222
+    measurement_value:
+      quantity_value: 2030.37
+      quantity_unit: UCUM:pCi/L
+    uncertainty:
+      quantity_value: 272.59
+      quantity_unit: UCUM:pCi/L
+    time_since_start:
+      quantity_value: 13
+      quantity_unit: UCUM:min
+  - sample_name: "A16-8"
+    measurement_type: radon_222
+    measurement_value:
+      quantity_value: 1553.02
+      quantity_unit: UCUM:pCi/L
+    uncertainty:
+      quantity_value: 217.73
+      quantity_unit: UCUM:pCi/L
+    time_since_start:
+      quantity_value: 19
+      quantity_unit: UCUM:min
+  - sample_name: "A16-9"
+    measurement_type: radon_222
+    measurement_value:
+      quantity_value: 1498.45
+      quantity_unit: UCUM:pCi/L
+    uncertainty:
+      quantity_value: 212.57
+      quantity_unit: UCUM:pCi/L
+    time_since_start:
+      quantity_value: 25
+      quantity_unit: UCUM:min

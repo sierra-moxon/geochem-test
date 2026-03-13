@@ -775,6 +775,7 @@ dev = [
     { name = "mkdocs-mermaid2-plugin" },
     { name = "mkdocs-pymdownx-material-extras" },
     { name = "mknotebooks" },
+    { name = "openpyxl" },
 ]
 
 [package.metadata]
@@ -788,6 +789,7 @@ dev = [
     { name = "mkdocs-mermaid2-plugin", specifier = ">=1.1.1" },
     { name = "mkdocs-pymdownx-material-extras", specifier = ">=2.5.6" },
     { name = "mknotebooks", specifier = ">=0.8.0" },
+    { name = "openpyxl", specifier = ">=3.1.0" },
 ]
 
 [[package]]

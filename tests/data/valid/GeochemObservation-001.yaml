@@ -1,0 +1,13 @@
+# Single radon observation
+---
+sample_name: "A16-7"
+measurement_type: radon_222
+measurement_value:
+  quantity_value: 2030.37
+  quantity_unit: UCUM:pCi/L
+uncertainty:
+  quantity_value: 272.59
+  quantity_unit: UCUM:pCi/L
+time_since_start:
+  quantity_value: 13
+  quantity_unit: UCUM:min

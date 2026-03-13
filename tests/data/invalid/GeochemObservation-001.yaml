@@ -1,0 +1,6 @@
+# Invalid: missing required measurement_type and measurement_value
+---
+sample_name: "BAD-1"
+uncertainty:
+  quantity_value: 100.0
+  quantity_unit: UCUM:pCi/L
