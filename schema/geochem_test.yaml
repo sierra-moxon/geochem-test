@@ -663,6 +663,8 @@ classes:
   Quantity:
     name: Quantity
     definition_uri: https://w3id.org/sierra-moxon/geochem-test/Quantity
+    implements:
+    - bertron:QuantityValue
     description: A numeric value with an optional unit. Designed for inline composition
       (no identifier). Compatible with bertron's QuantityValue.
     from_schema: https://w3id.org/sierra-moxon/geochem-test
@@ -702,10 +704,17 @@ classes:
   GeochemObservation:
     name: GeochemObservation
     definition_uri: https://w3id.org/sierra-moxon/geochem-test/GeochemObservation
+    implements:
+    - bertron:Entity
+    instantiates:
+    - coms:ObservationProfile
     annotations:
-      implements:
-        tag: implements
-        value: bertron:Entity
+      profile_version:
+        tag: profile_version
+        value: '1.0'
+      domain:
+        tag: domain
+        value: geochemistry
     description: A single geochemical measurement observation. Replaces bertron's
       generic properties bag with named slots for measurement data.
     from_schema: https://w3id.org/sierra-moxon/geochem-test
@@ -763,10 +772,17 @@ classes:
   GeochemDataset:
     name: GeochemDataset
     definition_uri: https://w3id.org/sierra-moxon/geochem-test/GeochemDataset
+    implements:
+    - bertron:Entity
+    instantiates:
+    - coms:DatasetProfile
     annotations:
-      implements:
-        tag: implements
-        value: bertron:Entity
+      profile_version:
+        tag: profile_version
+        value: '1.0'
+      domain:
+        tag: domain
+        value: geochemistry
     description: A dataset containing geochemical observations from a well-field experiment.
       Serves as the tree root and mirrors bertron Entity core slots.
     from_schema: https://w3id.org/sierra-moxon/geochem-test
@@ -799,7 +815,7 @@ classes:
     tree_root: true
 metamodel_version: 1.7.0
 source_file: geochem_test.yaml
-source_file_date: '2026-03-13T23:50:34'
-source_file_size: 10318
-generation_date: '2026-03-13T23:50:42'
+source_file_date: '2026-03-16T16:39:19'
+source_file_size: 10584
+generation_date: '2026-03-16T16:39:36'
 
