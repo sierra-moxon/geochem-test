@@ -39,6 +39,8 @@ classes:
     description: >-
       A numeric value with an optional unit. Designed for inline composition
       (no identifier). Compatible with bertron's QuantityValue.
+    implements:
+      - bertron:QuantityValue
     slots:
       - quantity_value
       - quantity_unit
@@ -74,8 +76,13 @@ classes:
     description: >-
       A single geochemical measurement observation. Replaces bertron's generic
       properties bag with named slots for measurement data.
+    implements:
+      - bertron:Entity
+    instantiates:
+      - coms:ObservationProfile
     annotations:
-      implements: bertron:Entity
+      profile_version: "1.0"
+      domain: geochemistry
     slots:
       - sample_name
       - measurement_type
@@ -111,8 +118,13 @@ classes:
     description: >-
       A dataset containing geochemical observations from a well-field experiment.
       Serves as the tree root and mirrors bertron Entity core slots.
+    implements:
+      - bertron:Entity
+    instantiates:
+      - coms:DatasetProfile
     annotations:
-      implements: bertron:Entity
+      profile_version: "1.0"
+      domain: geochemistry
     slots:
       - id
       - name

@@ -1,5 +1,5 @@
 # Auto generated from geochem_test.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-03-13T16:24:50
+# Generation date: 2026-03-16T09:37:59
 # Schema: geochem-test
 #
 # id: https://w3id.org/sierra-moxon/geochem-test
@@ -35,6 +35,7 @@ from linkml_runtime.linkml_model.meta import (
     PvFormulaOptions
 )
 from linkml_runtime.utils.curienamespace import CurieNamespace
+from linkml_runtime.utils.dataclass_extensions_376 import dataclasses_init_fn_with_kwargs
 from linkml_runtime.utils.enumerations import EnumDefinitionImpl
 from linkml_runtime.utils.formatutils import (
     camelcase,
@@ -64,6 +65,9 @@ from linkml_runtime.utils.metamodelcore import Decimal, URI, URIorCURIE
 metamodel_version = "1.7.0"
 version = None
 
+# Overwrite dataclasses _init_fn to add **kwargs in __init__
+dataclasses._init_fn = dataclasses_init_fn_with_kwargs
+
 # Namespaces
 CHEBI = CurieNamespace('CHEBI', 'http://purl.obolibrary.org/obo/CHEBI_')
 ENVO = CurieNamespace('ENVO', 'http://purl.obolibrary.org/obo/ENVO_')
@@ -92,7 +96,7 @@ class Quantity(YAMLRoot):
     A numeric value with an optional unit. Designed for inline composition (no identifier). Compatible with bertron's
     QuantityValue.
     """
-    _inherited_slots: ClassVar[list[str]] = []
+    _inherited_slots: ClassVar[List[str]] = []
 
     class_class_uri: ClassVar[URIRef] = SCHEMA["QuantitativeValue"]
     class_class_curie: ClassVar[str] = "schema:QuantitativeValue"
@@ -102,7 +106,7 @@ class Quantity(YAMLRoot):
     quantity_value: Decimal = None
     quantity_unit: Optional[Union[str, URIorCURIE]] = None
 
-    def __post_init__(self, *_: str, **kwargs: Any):
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.quantity_value):
             self.MissingRequiredField("quantity_value")
         if not isinstance(self.quantity_value, Decimal):
@@ -120,7 +124,7 @@ class TracerExperimentMetadata(YAMLRoot):
     Metadata for a tracer experiment, including initial concentrations and flow rate extracted from the spreadsheet
     header.
     """
-    _inherited_slots: ClassVar[list[str]] = []
+    _inherited_slots: ClassVar[List[str]] = []
 
     class_class_uri: ClassVar[URIRef] = GEOCHEM_TEST["TracerExperimentMetadata"]
     class_class_curie: ClassVar[str] = "geochem_test:TracerExperimentMetadata"
@@ -131,7 +135,7 @@ class TracerExperimentMetadata(YAMLRoot):
     initial_cesium_concentration: Optional[Union[dict, Quantity]] = None
     flow_rate: Optional[Union[dict, Quantity]] = None
 
-    def __post_init__(self, *_: str, **kwargs: Any):
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self.initial_iodine_concentration is not None and not isinstance(self.initial_iodine_concentration, Quantity):
             self.initial_iodine_concentration = Quantity(**as_dict(self.initial_iodine_concentration))
 
@@ -150,7 +154,7 @@ class GeochemObservation(YAMLRoot):
     A single geochemical measurement observation. Replaces bertron's generic properties bag with named slots for
     measurement data.
     """
-    _inherited_slots: ClassVar[list[str]] = []
+    _inherited_slots: ClassVar[List[str]] = []
 
     class_class_uri: ClassVar[URIRef] = GEOCHEM_TEST["GeochemObservation"]
     class_class_curie: ClassVar[str] = "geochem_test:GeochemObservation"
@@ -163,7 +167,7 @@ class GeochemObservation(YAMLRoot):
     uncertainty: Optional[Union[dict, Quantity]] = None
     time_since_start: Optional[Union[dict, Quantity]] = None
 
-    def __post_init__(self, *_: str, **kwargs: Any):
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.measurement_type):
             self.MissingRequiredField("measurement_type")
         if not isinstance(self.measurement_type, GeochemMeasurementTypeEnum):
@@ -191,7 +195,7 @@ class RadonObservation(GeochemObservation):
     """
     A radon-222 activity concentration measurement. Expected measurement_type: radon_222, unit: pCi/L.
     """
-    _inherited_slots: ClassVar[list[str]] = []
+    _inherited_slots: ClassVar[List[str]] = []
 
     class_class_uri: ClassVar[URIRef] = GEOCHEM_TEST["RadonObservation"]
     class_class_curie: ClassVar[str] = "geochem_test:RadonObservation"
@@ -206,7 +210,7 @@ class TracerConcentrationObservation(GeochemObservation):
     """
     A tracer concentration measurement (iodine or cesium). Expected unit: ppb (iodine) or ppm (cesium).
     """
-    _inherited_slots: ClassVar[list[str]] = []
+    _inherited_slots: ClassVar[List[str]] = []
 
     class_class_uri: ClassVar[URIRef] = GEOCHEM_TEST["TracerConcentrationObservation"]
     class_class_curie: ClassVar[str] = "geochem_test:TracerConcentrationObservation"
@@ -221,7 +225,7 @@ class WaterQualityObservation(GeochemObservation):
     """
     A water quality parameter measurement (temperature, dissolved oxygen, specific conductance, pH, or ORP).
     """
-    _inherited_slots: ClassVar[list[str]] = []
+    _inherited_slots: ClassVar[List[str]] = []
 
     class_class_uri: ClassVar[URIRef] = GEOCHEM_TEST["WaterQualityObservation"]
     class_class_curie: ClassVar[str] = "geochem_test:WaterQualityObservation"
@@ -237,7 +241,7 @@ class GeochemDataset(YAMLRoot):
     A dataset containing geochemical observations from a well-field experiment. Serves as the tree root and mirrors
     bertron Entity core slots.
     """
-    _inherited_slots: ClassVar[list[str]] = []
+    _inherited_slots: ClassVar[List[str]] = []
 
     class_class_uri: ClassVar[URIRef] = GEOCHEM_TEST["GeochemDataset"]
     class_class_curie: ClassVar[str] = "geochem_test:GeochemDataset"
@@ -249,13 +253,13 @@ class GeochemDataset(YAMLRoot):
     description: Optional[str] = None
     ber_data_source: Optional[str] = None
     uri: Optional[Union[str, URI]] = None
-    entity_type: Optional[Union[Union[str, "EntityType"], list[Union[str, "EntityType"]]]] = empty_list()
+    entity_type: Optional[Union[Union[str, "EntityType"], List[Union[str, "EntityType"]]]] = empty_list()
     experiment_type: Optional[Union[str, "ExperimentTypeEnum"]] = None
     coordinates: Optional[str] = None
-    observations: Optional[Union[Union[dict, GeochemObservation], list[Union[dict, GeochemObservation]]]] = empty_list()
+    observations: Optional[Union[Union[dict, GeochemObservation], List[Union[dict, GeochemObservation]]]] = empty_list()
     experiment_metadata: Optional[Union[dict, TracerExperimentMetadata]] = None
 
-    def __post_init__(self, *_: str, **kwargs: Any):
+    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
             self.MissingRequiredField("id")
         if not isinstance(self.id, GeochemDatasetId):
@@ -283,7 +287,9 @@ class GeochemDataset(YAMLRoot):
         if self.coordinates is not None and not isinstance(self.coordinates, str):
             self.coordinates = str(self.coordinates)
 
-        self._normalize_inlined_as_list(slot_name="observations", slot_type=GeochemObservation, key_name="measurement_type", keyed=False)
+        if not isinstance(self.observations, list):
+            self.observations = [self.observations] if self.observations is not None else []
+        self.observations = [v if isinstance(v, GeochemObservation) else GeochemObservation(**as_dict(v)) for v in self.observations]
 
         if self.experiment_metadata is not None and not isinstance(self.experiment_metadata, TracerExperimentMetadata):
             self.experiment_metadata = TracerExperimentMetadata(**as_dict(self.experiment_metadata))
@@ -426,7 +432,7 @@ slots.uri = Slot(uri=GEOCHEM_TEST.uri, name="uri", curie=GEOCHEM_TEST.curie('uri
                    model_uri=GEOCHEM_TEST.uri, domain=None, range=Optional[Union[str, URI]])
 
 slots.entity_type = Slot(uri=GEOCHEM_TEST.entity_type, name="entity_type", curie=GEOCHEM_TEST.curie('entity_type'),
-                   model_uri=GEOCHEM_TEST.entity_type, domain=None, range=Optional[Union[Union[str, "EntityType"], list[Union[str, "EntityType"]]]])
+                   model_uri=GEOCHEM_TEST.entity_type, domain=None, range=Optional[Union[Union[str, "EntityType"], List[Union[str, "EntityType"]]]])
 
 slots.coordinates = Slot(uri=GEOCHEM_TEST.coordinates, name="coordinates", curie=GEOCHEM_TEST.curie('coordinates'),
                    model_uri=GEOCHEM_TEST.coordinates, domain=None, range=Optional[str])
@@ -465,8 +471,7 @@ slots.tracerExperimentMetadata__flow_rate = Slot(uri=GEOCHEM_TEST.flow_rate, nam
                    model_uri=GEOCHEM_TEST.tracerExperimentMetadata__flow_rate, domain=None, range=Optional[Union[dict, Quantity]])
 
 slots.geochemDataset__observations = Slot(uri=GEOCHEM_TEST.observations, name="geochemDataset__observations", curie=GEOCHEM_TEST.curie('observations'),
-                   model_uri=GEOCHEM_TEST.geochemDataset__observations, domain=None, range=Optional[Union[Union[dict, GeochemObservation], list[Union[dict, GeochemObservation]]]])
+                   model_uri=GEOCHEM_TEST.geochemDataset__observations, domain=None, range=Optional[Union[Union[dict, GeochemObservation], List[Union[dict, GeochemObservation]]]])
 
 slots.geochemDataset__experiment_metadata = Slot(uri=GEOCHEM_TEST.experiment_metadata, name="geochemDataset__experiment_metadata", curie=GEOCHEM_TEST.curie('experiment_metadata'),
                    model_uri=GEOCHEM_TEST.geochemDataset__experiment_metadata, domain=None, range=Optional[Union[dict, TracerExperimentMetadata]])
-
