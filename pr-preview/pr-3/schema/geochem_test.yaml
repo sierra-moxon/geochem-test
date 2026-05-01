@@ -1,0 +1,821 @@
+name: geochem-test
+description: 'A geochemical microschema for modeling well-field experiment observations,
+
+  designed to conform to bertron-schema''s Entity pattern using named slots
+
+  instead of a generic properties bag.'
+title: geochem-test
+see_also:
+- https://sierra-moxon.github.io/geochem-test
+id: https://w3id.org/sierra-moxon/geochem-test
+imports:
+- linkml:types
+license: MIT
+prefixes:
+  geochem_test:
+    prefix_prefix: geochem_test
+    prefix_reference: https://w3id.org/sierra-moxon/geochem-test/
+  linkml:
+    prefix_prefix: linkml
+    prefix_reference: https://w3id.org/linkml/
+  schema:
+    prefix_prefix: schema
+    prefix_reference: http://schema.org/
+  CHEBI:
+    prefix_prefix: CHEBI
+    prefix_reference: http://purl.obolibrary.org/obo/CHEBI_
+  UO:
+    prefix_prefix: UO
+    prefix_reference: http://purl.obolibrary.org/obo/UO_
+  UCUM:
+    prefix_prefix: UCUM
+    prefix_reference: https://units-of-measurement.org/
+  ENVO:
+    prefix_prefix: ENVO
+    prefix_reference: http://purl.obolibrary.org/obo/ENVO_
+  OBI:
+    prefix_prefix: OBI
+    prefix_reference: http://purl.obolibrary.org/obo/OBI_
+  coms:
+    prefix_prefix: coms
+    prefix_reference: https://w3id.org/linkml/linkml-microschema-profile/
+  nmdc:
+    prefix_prefix: nmdc
+    prefix_reference: https://w3id.org/nmdc/
+  bertron:
+    prefix_prefix: bertron
+    prefix_reference: https://w3id.org/bertron-schema/
+default_prefix: geochem_test
+default_range: string
+types:
+  string:
+    name: string
+    definition_uri: https://w3id.org/linkml/String
+    description: A character string
+    notes:
+    - In RDF serializations, a slot with range of string is treated as a literal or
+      type xsd:string.   If you are authoring schemas in LinkML YAML, the type is
+      referenced with the lower case "string".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Text
+    base: str
+    uri: xsd:string
+  integer:
+    name: integer
+    definition_uri: https://w3id.org/linkml/Integer
+    description: An integer
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "integer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Integer
+    base: int
+    uri: xsd:integer
+  boolean:
+    name: boolean
+    definition_uri: https://w3id.org/linkml/Boolean
+    description: A binary (true or false) value
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "boolean".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Boolean
+    base: Bool
+    uri: xsd:boolean
+    repr: bool
+  float:
+    name: float
+    definition_uri: https://w3id.org/linkml/Float
+    description: A real number that conforms to the xsd:float specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "float".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:float
+  double:
+    name: double
+    definition_uri: https://w3id.org/linkml/Double
+    description: A real number that conforms to the xsd:double specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "double".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:double
+  decimal:
+    name: decimal
+    definition_uri: https://w3id.org/linkml/Decimal
+    description: A real number with arbitrary precision that conforms to the xsd:decimal
+      specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "decimal".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    broad_mappings:
+    - schema:Number
+    base: Decimal
+    uri: xsd:decimal
+  time:
+    name: time
+    definition_uri: https://w3id.org/linkml/Time
+    description: A time object represents a (local) time of day, independent of any
+      particular day
+    notes:
+    - URI is dateTime because OWL reasoners do not work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "time".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Time
+    base: XSDTime
+    uri: xsd:time
+    repr: str
+  date:
+    name: date
+    definition_uri: https://w3id.org/linkml/Date
+    description: a date (year, month and day) in an idealized calendar
+    notes:
+    - URI is dateTime because OWL reasoners don't work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Date
+    base: XSDDate
+    uri: xsd:date
+    repr: str
+  datetime:
+    name: datetime
+    definition_uri: https://w3id.org/linkml/Datetime
+    description: The combination of a date and time
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:DateTime
+    base: XSDDateTime
+    uri: xsd:dateTime
+    repr: str
+  date_or_datetime:
+    name: date_or_datetime
+    definition_uri: https://w3id.org/linkml/DateOrDatetime
+    description: Either a date or a datetime
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date_or_datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: linkml:DateOrDatetime
+    repr: str
+  uriorcurie:
+    name: uriorcurie
+    definition_uri: https://w3id.org/linkml/Uriorcurie
+    description: a URI or a CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uriorcurie".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: URIorCURIE
+    uri: xsd:anyURI
+    repr: str
+  curie:
+    name: curie
+    definition_uri: https://w3id.org/linkml/Curie
+    conforms_to: https://www.w3.org/TR/curie/
+    description: a compact URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "curie".
+    comments:
+    - in RDF serializations this MUST be expanded to a URI
+    - in non-RDF serializations MAY be serialized as the compact representation
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: Curie
+    uri: xsd:string
+    repr: str
+  uri:
+    name: uri
+    definition_uri: https://w3id.org/linkml/Uri
+    conforms_to: https://www.ietf.org/rfc/rfc3987.txt
+    description: a complete URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uri".
+    comments:
+    - in RDF serializations a slot with range of uri is treated as a literal or type
+      xsd:anyURI unless it is an identifier or a reference to an identifier, in which
+      case it is translated directly to a node
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:URL
+    base: URI
+    uri: xsd:anyURI
+    repr: str
+  ncname:
+    name: ncname
+    definition_uri: https://w3id.org/linkml/Ncname
+    description: Prefix part of CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "ncname".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NCName
+    uri: xsd:string
+    repr: str
+  objectidentifier:
+    name: objectidentifier
+    definition_uri: https://w3id.org/linkml/Objectidentifier
+    description: A URI or CURIE that represents an object in the model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "objectidentifier".
+    comments:
+    - Used for inheritance and type checking
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: ElementIdentifier
+    uri: shex:iri
+    repr: str
+  nodeidentifier:
+    name: nodeidentifier
+    definition_uri: https://w3id.org/linkml/Nodeidentifier
+    description: A URI, CURIE or BNODE that represents a node in a model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "nodeidentifier".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NodeIdentifier
+    uri: shex:nonLiteral
+    repr: str
+  jsonpointer:
+    name: jsonpointer
+    definition_uri: https://w3id.org/linkml/Jsonpointer
+    conforms_to: https://datatracker.ietf.org/doc/html/rfc6901
+    description: A string encoding a JSON Pointer. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to a valid object within the current
+      instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpointer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  jsonpath:
+    name: jsonpath
+    definition_uri: https://w3id.org/linkml/Jsonpath
+    conforms_to: https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html
+    description: A string encoding a JSON Path. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to zero or more valid objects within
+      the current instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  sparqlpath:
+    name: sparqlpath
+    definition_uri: https://w3id.org/linkml/Sparqlpath
+    conforms_to: https://www.w3.org/TR/sparql11-query/#propertypaths
+    description: A string encoding a SPARQL Property Path. The value of the string
+      MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects
+      within the current instance document when encoded as RDF.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "sparqlpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+enums:
+  GeochemMeasurementTypeEnum:
+    name: GeochemMeasurementTypeEnum
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/GeochemMeasurementTypeEnum
+    description: Types of geochemical measurements
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    permissible_values:
+      radon_222:
+        text: radon_222
+        description: Radon-222 activity concentration
+        meaning: CHEBI:33323
+      iodine:
+        text: iodine
+        description: Iodine tracer concentration
+        meaning: CHEBI:24859
+      cesium:
+        text: cesium
+        description: Cesium tracer concentration
+        meaning: CHEBI:30514
+      temperature:
+        text: temperature
+        description: Water temperature
+        meaning: ENVO:09200014
+      dissolved_oxygen:
+        text: dissolved_oxygen
+        description: Dissolved oxygen concentration
+        meaning: ENVO:3100011
+      specific_conductance:
+        text: specific_conductance
+        description: Specific conductance of water
+        meaning: ENVO:09200013
+      ph:
+        text: ph
+        description: pH of water
+        meaning: ENVO:3100026
+      orp:
+        text: orp
+        description: Oxidation-reduction potential
+        meaning: ENVO:09200018
+  ExperimentTypeEnum:
+    name: ExperimentTypeEnum
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/ExperimentTypeEnum
+    description: Types of well-field experiments
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    permissible_values:
+      extraction:
+        text: extraction
+        description: Groundwater extraction experiment
+      tracer:
+        text: tracer
+        description: Tracer injection experiment
+  EntityType:
+    name: EntityType
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/EntityType
+    description: Entity types from bertron-schema, representing categories of scientific
+      data entities.
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    permissible_values:
+      biodata:
+        text: biodata
+        description: Biological data
+      sample:
+        text: sample
+        description: Physical sample
+      sequence:
+        text: sequence
+        description: Nucleotide or protein sequence
+      dataset:
+        text: dataset
+        description: A collection of data
+      site:
+        text: site
+        description: A geographic or experimental site
+      project:
+        text: project
+        description: A research project
+      publication:
+        text: publication
+        description: A published work
+  BERSourceType:
+    name: BERSourceType
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/BERSourceType
+    description: Data source types from bertron-schema.
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    permissible_values:
+      EMSL:
+        text: EMSL
+        description: Environmental Molecular Sciences Laboratory
+      ESS_DIVE:
+        text: ESS_DIVE
+        description: ESS-DIVE data repository
+      JGI:
+        text: JGI
+        description: Joint Genome Institute
+      MONET:
+        text: MONET
+        description: MONET consortium
+      NMDC:
+        text: NMDC
+        description: National Microbiome Data Collaborative
+slots:
+  id:
+    name: id
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/id
+    description: A unique identifier for this entity
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    mappings:
+    - schema:identifier
+    slot_uri: schema:identifier
+    identifier: true
+    owner: GeochemDataset
+    domain_of:
+    - GeochemDataset
+    range: uriorcurie
+    required: true
+  name:
+    name: name
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/name
+    description: A human-readable name for this entity
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    mappings:
+    - schema:name
+    slot_uri: schema:name
+    owner: GeochemDataset
+    domain_of:
+    - GeochemDataset
+    range: string
+  description:
+    name: description
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/description
+    description: A human-readable description for this entity
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    mappings:
+    - schema:description
+    slot_uri: schema:description
+    owner: GeochemDataset
+    domain_of:
+    - GeochemDataset
+    range: string
+  ber_data_source:
+    name: ber_data_source
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/ber_data_source
+    description: The source file for this data (bertron Entity provenance). E.g. the
+      xlsx filename.
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    exact_mappings:
+    - bertron:ber_data_source
+    slot_uri: geochem_test:ber_data_source
+    owner: GeochemDataset
+    domain_of:
+    - GeochemDataset
+    range: string
+  uri:
+    name: uri
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/uri
+    description: A permanent URI for this dataset (bertron Entity provenance).
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    exact_mappings:
+    - bertron:uri
+    slot_uri: geochem_test:uri
+    owner: GeochemDataset
+    domain_of:
+    - GeochemDataset
+    range: uri
+  entity_type:
+    name: entity_type
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/entity_type
+    description: The type(s) of this entity, from bertron's EntityType enum.
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    exact_mappings:
+    - bertron:entity_type
+    slot_uri: geochem_test:entity_type
+    owner: GeochemDataset
+    domain_of:
+    - GeochemDataset
+    range: EntityType
+    multivalued: true
+  coordinates:
+    name: coordinates
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/coordinates
+    description: Geographic coordinates for the sampling site
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    slot_uri: geochem_test:coordinates
+    owner: GeochemDataset
+    domain_of:
+    - GeochemDataset
+    range: string
+  experiment_type:
+    name: experiment_type
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/experiment_type
+    description: The type of experiment (extraction or tracer)
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    slot_uri: geochem_test:experiment_type
+    owner: GeochemDataset
+    domain_of:
+    - GeochemDataset
+    range: ExperimentTypeEnum
+  sample_name:
+    name: sample_name
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/sample_name
+    description: Sample identifier from the experiment (e.g. "A16-7"). Replaces bertron's
+      generic properties[label="sample name"].
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    slot_uri: geochem_test:sample_name
+    owner: GeochemObservation
+    domain_of:
+    - GeochemObservation
+    range: string
+  measurement_type:
+    name: measurement_type
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/measurement_type
+    description: What is being measured. Replaces bertron's properties[].attribute.
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    exact_mappings:
+    - coms:measurement_type
+    slot_uri: geochem_test:measurement_type
+    owner: GeochemObservation
+    domain_of:
+    - GeochemObservation
+    range: GeochemMeasurementTypeEnum
+    required: true
+  measurement_value:
+    name: measurement_value
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/measurement_value
+    description: The observed value and unit. Replaces bertron's properties[].numeric_value
+      + unit.
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    slot_uri: geochem_test:measurement_value
+    owner: GeochemObservation
+    domain_of:
+    - GeochemObservation
+    range: Quantity
+    required: true
+    inlined: true
+    inlined_as_list: true
+  uncertainty:
+    name: uncertainty
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/uncertainty
+    description: Measurement uncertainty (same unit as measurement_value)
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    slot_uri: geochem_test:uncertainty
+    owner: GeochemObservation
+    domain_of:
+    - GeochemObservation
+    range: Quantity
+    inlined: true
+    inlined_as_list: true
+  time_since_start:
+    name: time_since_start
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/time_since_start
+    description: Elapsed time from the start of the experiment.
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    slot_uri: geochem_test:time_since_start
+    owner: GeochemObservation
+    domain_of:
+    - GeochemObservation
+    range: Quantity
+    inlined: true
+    inlined_as_list: true
+  quantity_value:
+    name: quantity_value
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/quantity_value
+    description: The numeric value
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    slot_uri: geochem_test:quantity_value
+    owner: Quantity
+    domain_of:
+    - Quantity
+    range: decimal
+    required: true
+  quantity_unit:
+    name: quantity_unit
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/quantity_unit
+    description: Unit of measurement (UCUM, UO, etc.)
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    mappings:
+    - schema:unitCode
+    slot_uri: schema:unitCode
+    owner: Quantity
+    domain_of:
+    - Quantity
+    range: uriorcurie
+  tracerExperimentMetadata__initial_iodine_concentration:
+    name: tracerExperimentMetadata__initial_iodine_concentration
+    description: Initial iodine tracer concentration (C_I)
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    slot_uri: geochem_test:initial_iodine_concentration
+    alias: initial_iodine_concentration
+    owner: TracerExperimentMetadata
+    domain_of:
+    - TracerExperimentMetadata
+    range: Quantity
+    inlined: true
+    inlined_as_list: true
+  tracerExperimentMetadata__initial_cesium_concentration:
+    name: tracerExperimentMetadata__initial_cesium_concentration
+    description: Initial cesium tracer concentration (C_Cs)
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    slot_uri: geochem_test:initial_cesium_concentration
+    alias: initial_cesium_concentration
+    owner: TracerExperimentMetadata
+    domain_of:
+    - TracerExperimentMetadata
+    range: Quantity
+    inlined: true
+    inlined_as_list: true
+  tracerExperimentMetadata__flow_rate:
+    name: tracerExperimentMetadata__flow_rate
+    description: Flow rate during the experiment (Q)
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    slot_uri: geochem_test:flow_rate
+    alias: flow_rate
+    owner: TracerExperimentMetadata
+    domain_of:
+    - TracerExperimentMetadata
+    range: Quantity
+    inlined: true
+    inlined_as_list: true
+  geochemDataset__observations:
+    name: geochemDataset__observations
+    description: The geochemical observations in this dataset
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    slot_uri: geochem_test:observations
+    alias: observations
+    owner: GeochemDataset
+    domain_of:
+    - GeochemDataset
+    range: GeochemObservation
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  geochemDataset__experiment_metadata:
+    name: geochemDataset__experiment_metadata
+    description: Optional metadata for tracer experiments
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    slot_uri: geochem_test:experiment_metadata
+    alias: experiment_metadata
+    owner: GeochemDataset
+    domain_of:
+    - GeochemDataset
+    range: TracerExperimentMetadata
+    inlined: true
+    inlined_as_list: true
+classes:
+  Quantity:
+    name: Quantity
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/Quantity
+    implements:
+    - bertron:QuantityValue
+    description: A numeric value with an optional unit. Designed for inline composition
+      (no identifier). Compatible with bertron's QuantityValue.
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    mappings:
+    - schema:QuantitativeValue
+    slots:
+    - quantity_value
+    - quantity_unit
+    class_uri: schema:QuantitativeValue
+  TracerExperimentMetadata:
+    name: TracerExperimentMetadata
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/TracerExperimentMetadata
+    description: Metadata for a tracer experiment, including initial concentrations
+      and flow rate extracted from the spreadsheet header.
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    slots:
+    - tracerExperimentMetadata__initial_iodine_concentration
+    - tracerExperimentMetadata__initial_cesium_concentration
+    - tracerExperimentMetadata__flow_rate
+    attributes:
+      initial_iodine_concentration:
+        name: initial_iodine_concentration
+        description: Initial iodine tracer concentration (C_I)
+        range: Quantity
+        inlined: true
+      initial_cesium_concentration:
+        name: initial_cesium_concentration
+        description: Initial cesium tracer concentration (C_Cs)
+        range: Quantity
+        inlined: true
+      flow_rate:
+        name: flow_rate
+        description: Flow rate during the experiment (Q)
+        range: Quantity
+        inlined: true
+    class_uri: geochem_test:TracerExperimentMetadata
+  GeochemObservation:
+    name: GeochemObservation
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/GeochemObservation
+    implements:
+    - bertron:Entity
+    instantiates:
+    - coms:ObservationProfile
+    annotations:
+      profile_version:
+        tag: profile_version
+        value: '1.0'
+      domain:
+        tag: domain
+        value: geochemistry
+    description: A single geochemical measurement observation. Replaces bertron's
+      generic properties bag with named slots for measurement data.
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    mappings:
+    - geochem_test:GeochemObservation
+    slots:
+    - sample_name
+    - measurement_type
+    - measurement_value
+    - uncertainty
+    - time_since_start
+    class_uri: geochem_test:GeochemObservation
+  RadonObservation:
+    name: RadonObservation
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/RadonObservation
+    description: 'A radon-222 activity concentration measurement. Expected measurement_type:
+      radon_222, unit: pCi/L.'
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    is_a: GeochemObservation
+    slots:
+    - sample_name
+    - measurement_type
+    - measurement_value
+    - uncertainty
+    - time_since_start
+    class_uri: geochem_test:RadonObservation
+  TracerConcentrationObservation:
+    name: TracerConcentrationObservation
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/TracerConcentrationObservation
+    description: 'A tracer concentration measurement (iodine or cesium). Expected
+      unit: ppb (iodine) or ppm (cesium).'
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    is_a: GeochemObservation
+    slots:
+    - sample_name
+    - measurement_type
+    - measurement_value
+    - uncertainty
+    - time_since_start
+    class_uri: geochem_test:TracerConcentrationObservation
+  WaterQualityObservation:
+    name: WaterQualityObservation
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/WaterQualityObservation
+    description: A water quality parameter measurement (temperature, dissolved oxygen,
+      specific conductance, pH, or ORP).
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    is_a: GeochemObservation
+    slots:
+    - sample_name
+    - measurement_type
+    - measurement_value
+    - uncertainty
+    - time_since_start
+    class_uri: geochem_test:WaterQualityObservation
+  GeochemDataset:
+    name: GeochemDataset
+    definition_uri: https://w3id.org/sierra-moxon/geochem-test/GeochemDataset
+    implements:
+    - bertron:Entity
+    instantiates:
+    - coms:DatasetProfile
+    annotations:
+      profile_version:
+        tag: profile_version
+        value: '1.0'
+      domain:
+        tag: domain
+        value: geochemistry
+    description: A dataset containing geochemical observations from a well-field experiment.
+      Serves as the tree root and mirrors bertron Entity core slots.
+    from_schema: https://w3id.org/sierra-moxon/geochem-test
+    mappings:
+    - geochem_test:GeochemDataset
+    slots:
+    - id
+    - name
+    - description
+    - ber_data_source
+    - uri
+    - entity_type
+    - experiment_type
+    - coordinates
+    - geochemDataset__observations
+    - geochemDataset__experiment_metadata
+    attributes:
+      observations:
+        name: observations
+        description: The geochemical observations in this dataset
+        range: GeochemObservation
+        multivalued: true
+        inlined_as_list: true
+      experiment_metadata:
+        name: experiment_metadata
+        description: Optional metadata for tracer experiments
+        range: TracerExperimentMetadata
+        inlined: true
+    class_uri: geochem_test:GeochemDataset
+    tree_root: true
+metamodel_version: 1.7.0
+source_file: geochem_test.yaml
+source_file_date: '2026-05-01T11:54:07'
+source_file_size: 10584
+generation_date: '2026-05-01T11:54:16'
+
